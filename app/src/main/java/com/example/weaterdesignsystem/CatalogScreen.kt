@@ -89,7 +89,7 @@ private val categories = listOf("Todos") + allComponents.map { it.category }.dis
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CatalogScreen() {
-    var showXml by remember { mutableStateOf(false) }
+    var showXml by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Todos") }
 
@@ -131,7 +131,12 @@ fun CatalogScreen() {
 
         if (showXml) {
             AndroidView(
-                factory = { ctx -> XmlCatalogView(ctx) },
+                factory = { ctx ->
+                    val themedCtx = androidx.appcompat.view.ContextThemeWrapper(
+                        ctx, R.style.Theme_WeatherXmlCatalog,
+                    )
+                    XmlCatalogView(themedCtx)
+                },
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
