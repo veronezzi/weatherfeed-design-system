@@ -1,6 +1,9 @@
 package com.example.weaterdesignsystem
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -17,10 +20,6 @@ import com.weather.designsystem.xml.WeatherStatCardView
 import com.weather.designsystem.xml.WeatherTemperatureToggleView
 import com.weather.designsystem.xml.WeatherTopBarView
 
-/**
- * Self-contained FrameLayout com todo o catalog de componentes XML.
- * Pode ser embutido em qualquer tela via AndroidView no Compose.
- */
 class XmlCatalogView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -29,23 +28,74 @@ class XmlCatalogView @JvmOverloads constructor(
 
     private val binding: ViewXmlCatalogBinding
     private val allEntries by lazy { buildEntries() }
+    private var selectedCategory = "Todos"
+    private var currentQuery = ""
 
     init {
         binding = ViewXmlCatalogBinding.inflate(
             android.view.LayoutInflater.from(context), this, true,
         )
-        binding.searchBar.setOnTextChanged { query -> renderList(query) }
-        renderList("")
+        binding.searchBar.setHint("Buscar componente...")
+        binding.searchBar.setOnTextChanged { query ->
+            currentQuery = query
+            renderList()
+        }
+        buildChips()
+        renderList()
     }
 
-    private fun renderList(query: String) {
-        binding.container.removeAllViews()
-        val filtered = allEntries.filter {
-            query.isBlank() ||
-                it.name.contains(query, ignoreCase = true) ||
-                it.description.contains(query, ignoreCase = true)
+    private fun buildChips() {
+        val categories = listOf("Todos") + allEntries.map { it.category }.distinct()
+        binding.chipContainer.removeAllViews()
+        categories.forEach { cat ->
+            val chip = makeChip(cat)
+            chip.setOnClickListener {
+                selectedCategory = cat
+                buildChips()
+                renderList()
+            }
+            binding.chipContainer.addView(chip, chipParams())
         }
-        filtered.forEach { entry -> binding.container.addView(buildCard(entry)) }
+    }
+
+    private fun makeChip(label: String): TextView {
+        val isSelected = label == selectedCategory
+        val bgColor  = if (isSelected) 0xFF2D3A6E.toInt() else 0xFF1A2040.toInt()
+        val textColor = if (isSelected) 0xFF64B5F6.toInt() else 0xFF8892B0.toInt()
+
+        val bg = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 50f * resources.displayMetrics.density
+            setColor(bgColor)
+        }
+
+        return TextView(context).apply {
+            text = label
+            setTextColor(textColor)
+            textSize = 12f
+            background = bg
+            val hPad = (12 * resources.displayMetrics.density).toInt()
+            val vPad = (6  * resources.displayMetrics.density).toInt()
+            setPadding(hPad, vPad, hPad, vPad)
+        }
+    }
+
+    private fun chipParams() = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+    ).also { it.marginEnd = (8 * resources.displayMetrics.density).toInt() }
+
+    private fun renderList() {
+        binding.container.removeAllViews()
+        allEntries
+            .filter { entry ->
+                val matchesQuery = currentQuery.isBlank() ||
+                    entry.name.contains(currentQuery, ignoreCase = true) ||
+                    entry.description.contains(currentQuery, ignoreCase = true)
+                val matchesCat = selectedCategory == "Todos" || entry.category == selectedCategory
+                matchesQuery && matchesCat
+            }
+            .forEach { entry -> binding.container.addView(buildCard(entry)) }
     }
 
     private fun buildCard(entry: XmlComponentEntry): View {
@@ -154,7 +204,7 @@ class XmlCatalogView @JvmOverloads constructor(
             container.addView(toggle)
         },
 
-        XmlComponentEntry("bg_weather_card", "Tokens · Drawables",
+        XmlComponentEntry("bg_weather_card", "Tokens",
             "Background shape arredondado para cards — radius 20dp",
         ) { container ->
             val v = View(context)
@@ -162,7 +212,7 @@ class XmlCatalogView @JvmOverloads constructor(
             container.addView(v, LinearLayout.LayoutParams(matchWrap().width, 48.dp))
         },
 
-        XmlComponentEntry("WeatherText styles", "Tokens · Styles",
+        XmlComponentEntry("WeatherText styles", "Tokens",
             "Estilos de texto disponíveis via @style/WeatherText.*",
         ) { container ->
             mapOf(
@@ -177,14 +227,14 @@ class XmlCatalogView @JvmOverloads constructor(
             }
         },
 
-        XmlComponentEntry("Color tokens", "Tokens · Colors",
+        XmlComponentEntry("Color tokens", "Tokens",
             "weather_accent_blue, weather_surface_card, etc.",
         ) { container ->
             listOf(
-                "Accent Blue #5B9EF0"    to com.weather.designsystem.R.color.weather_accent_blue,
-                "Accent Cyan #64B5F6"    to com.weather.designsystem.R.color.weather_accent_cyan,
-                "Accent Orange #FF8C42"  to com.weather.designsystem.R.color.weather_accent_orange,
-                "Surface Card #1A2040"   to com.weather.designsystem.R.color.weather_surface_card,
+                "Accent Blue #5B9EF0"     to com.weather.designsystem.R.color.weather_accent_blue,
+                "Accent Cyan #64B5F6"     to com.weather.designsystem.R.color.weather_accent_cyan,
+                "Accent Orange #FF8C42"   to com.weather.designsystem.R.color.weather_accent_orange,
+                "Surface Card #1A2040"    to com.weather.designsystem.R.color.weather_surface_card,
                 "Background Dark #0D1230" to com.weather.designsystem.R.color.weather_background_dark,
             ).forEach { (label, colorRes) ->
                 val row = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }

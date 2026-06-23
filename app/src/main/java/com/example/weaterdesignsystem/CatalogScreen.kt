@@ -155,6 +155,7 @@ fun CatalogScreen() {
                     value = query,
                     onValueChange = { query = it },
                     modifier = Modifier.fillMaxWidth(),
+                    placeholder = "Buscar componente...",
                 )
             }
 
