@@ -86,6 +86,7 @@ layout weather_settings_row
 layout weather_stat_card
 layout weather_temperature_toggle
 layout weather_top_bar
+style WeatherText
 style WeatherText_Body
 style WeatherText_BodyLarge
 style WeatherText_Caption

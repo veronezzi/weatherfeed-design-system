@@ -36,6 +36,7 @@
     <dimen name="weather_text_label">11sp</dimen>
     <dimen name="weather_text_title">17sp</dimen>
     <dimen name="weather_top_bar_height">56dp</dimen>
+    <style name="WeatherText"/>
     <style name="WeatherText.Body">
         <item name="android:textColor">@color/weather_text_secondary</item>
         <item name="android:textSize">@dimen/weather_text_body</item>

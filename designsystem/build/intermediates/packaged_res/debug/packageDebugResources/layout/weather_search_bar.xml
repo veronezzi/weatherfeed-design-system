@@ -21,7 +21,7 @@
         android:layout_weight="1"
         android:background="@null"
         android:hint="Buscar cidade ou país..."
-        android:hintTextColor="@color/weather_text_secondary"
+        android:textColorHint="@color/weather_text_secondary"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:maxLines="1"

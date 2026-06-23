@@ -85,6 +85,7 @@ int layout weather_settings_row 0x0
 int layout weather_stat_card 0x0
 int layout weather_temperature_toggle 0x0
 int layout weather_top_bar 0x0
+int style WeatherText 0x0
 int style WeatherText_Body 0x0
 int style WeatherText_BodyLarge 0x0
 int style WeatherText_Caption 0x0

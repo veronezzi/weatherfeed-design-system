@@ -1,5 +1,6 @@
 package com.example.weaterdesignsystem
 
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.weather.designsystem.components.CityRow
 import com.weather.designsystem.components.ForecastDay
@@ -88,6 +90,7 @@ private val categories = listOf("Todos") + allComponents.map { it.category }.dis
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CatalogScreen() {
+    val context = LocalContext.current
     var query by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Todos") }
 
@@ -113,12 +116,34 @@ fun CatalogScreen() {
         ) {
             Column {
                 SectionLabel("WeatherFeed")
-                Text(
-                    text = "Design System",
-                    style = androidx.compose.material3.MaterialTheme.typography.headlineMedium.copy(
-                        color = AccentOrange,
-                    ),
-                )
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(
+                        text = "Design System",
+                        style = androidx.compose.material3.MaterialTheme.typography.headlineMedium.copy(
+                            color = AccentOrange,
+                        ),
+                    )
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(WeatherTheme.radius.pill))
+                            .background(com.weather.designsystem.theme.NavActivePill)
+                            .clickable {
+                                context.startActivity(Intent(context, XmlCatalogActivity::class.java))
+                            }
+                            .padding(horizontal = 12.dp, vertical = 6.dp),
+                    ) {
+                        Text(
+                            text = "Ver XML →",
+                            style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+                            color = AccentCyan,
+                        )
+                    }
+                }
             }
         }
 
