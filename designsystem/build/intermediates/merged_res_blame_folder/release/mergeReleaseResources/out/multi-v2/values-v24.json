@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.weather.designsystem-release-41:/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\guigu\\.gradle\\caches\\9.3.1\\transforms\\c52e74abea93ec438d4df0335a1c36b4\\workspace\\transformed\\appcompat-1.7.1\\res\\values-v24\\values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.weather.designsystem-mergeReleaseResources-39:/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\guigu\\.gradle\\caches\\9.3.1\\transforms\\c52e74abea93ec438d4df0335a1c36b4\\workspace\\transformed\\appcompat-1.7.1\\res\\values-v24\\values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        }
+    ]
+}

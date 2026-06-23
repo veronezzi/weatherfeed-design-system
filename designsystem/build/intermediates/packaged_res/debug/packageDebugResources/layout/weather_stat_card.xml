@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_weather_stat_card"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/weather_spacing_md">
+
+    <!-- Stat 1 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_stat1_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌡"
+            android:textSize="@dimen/weather_text_body_large" />
+
+        <TextView
+            android:id="@+id/tv_stat1_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            style="@style/WeatherText.Caption"
+            android:text="Sensação" />
+
+        <TextView
+            android:id="@+id/tv_stat1_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            style="@style/WeatherText.Title"
+            android:text="26°" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/weather_divider" />
+
+    <!-- Stat 2 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_stat2_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💧"
+            android:textSize="@dimen/weather_text_body_large" />
+
+        <TextView
+            android:id="@+id/tv_stat2_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            style="@style/WeatherText.Caption"
+            android:text="Umidade" />
+
+        <TextView
+            android:id="@+id/tv_stat2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            style="@style/WeatherText.Title"
+            android:text="68%" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/weather_divider" />
+
+    <!-- Stat 3 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_stat3_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💨"
+            android:textSize="@dimen/weather_text_body_large" />
+
+        <TextView
+            android:id="@+id/tv_stat3_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            style="@style/WeatherText.Caption"
+            android:text="Vento" />
+
+        <TextView
+            android:id="@+id/tv_stat3_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            style="@style/WeatherText.Title"
+            android:text="12 km/h" />
+    </LinearLayout>
+
+</LinearLayout>

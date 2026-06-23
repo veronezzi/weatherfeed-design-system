@@ -18,10 +18,15 @@
             android:theme="@style/Theme.WeaterDesignSystem">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".XmlCatalogActivity"
+            android:exported="false"
+            android:label="XML Catalog"
+            android:theme="@style/Theme.WeatherXmlCatalog" />
     </application>
 
 </manifest>

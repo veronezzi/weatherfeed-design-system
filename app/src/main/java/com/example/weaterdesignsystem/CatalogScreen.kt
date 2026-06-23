@@ -1,6 +1,7 @@
 package com.example.weaterdesignsystem
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -88,6 +89,7 @@ private val categories = listOf("Todos") + allComponents.map { it.category }.dis
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CatalogScreen() {
+    var showXml by remember { mutableStateOf(true) }
     var query by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("Todos") }
 
@@ -105,24 +107,43 @@ fun CatalogScreen() {
             .background(BackgroundDark),
     ) {
         // Header
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(BackgroundDeep)
                 .padding(horizontal = 20.dp, vertical = 20.dp),
         ) {
-            Column {
-                SectionLabel("WeatherFeed")
+            SectionLabel("WeatherFeed")
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
                 Text(
                     text = "Design System",
                     style = androidx.compose.material3.MaterialTheme.typography.headlineMedium.copy(
                         color = AccentOrange,
                     ),
                 )
+                CatalogToggle(isXml = showXml, onToggle = { showXml = it })
             }
         }
 
-        LazyColumn(
+        if (showXml) {
+            AndroidView(
+                factory = { ctx ->
+                    val themedCtx = androidx.appcompat.view.ContextThemeWrapper(
+                        ctx, R.style.Theme_WeatherXmlCatalog,
+                    )
+                    XmlCatalogView(themedCtx)
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+            )
+        }
+
+        if (!showXml) LazyColumn(
             verticalArrangement = Arrangement.spacedBy(WeatherTheme.spacing.sm),
             modifier = Modifier
                 .weight(1f)
@@ -134,6 +155,7 @@ fun CatalogScreen() {
                     value = query,
                     onValueChange = { query = it },
                     modifier = Modifier.fillMaxWidth(),
+                    placeholder = "Buscar componente...",
                 )
             }
 
@@ -173,6 +195,37 @@ fun CatalogScreen() {
             }
 
             item { Spacer(Modifier.height(WeatherTheme.spacing.lg)) }
+        }  // end LazyColumn
+    }
+}
+
+@Composable
+private fun CatalogToggle(isXml: Boolean, onToggle: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(WeatherTheme.radius.pill))
+            .background(NavActivePill)
+            .padding(3.dp),
+    ) {
+        listOf(false to "Compose", true to "XML").forEach { (xml, label) ->
+            val isSelected = isXml == xml
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(WeatherTheme.radius.pill))
+                    .background(
+                        if (isSelected) com.weather.designsystem.theme.AccentBlue
+                        else androidx.compose.ui.graphics.Color.Transparent,
+                    )
+                    .clickable { onToggle(xml) }
+                    .padding(horizontal = 12.dp, vertical = 5.dp),
+            ) {
+                Text(
+                    text = label,
+                    style = androidx.compose.material3.MaterialTheme.typography.bodySmall,
+                    color = if (isSelected) BackgroundDeep else TextSecondary,
+                )
+            }
         }
     }
 }
