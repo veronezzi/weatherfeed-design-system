@@ -47,35 +47,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Search bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp">
-
-        <com.weather.designsystem.xml.WeatherSearchBarView
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <!-- Scrollable content -->
-    <ScrollView
+    <!-- XML Catalog content (reusable view) -->
+    <com.example.weaterdesignsystem.XmlCatalogView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingBottom="24dp">
-
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="8dp" />
-    </ScrollView>
+        android:layout_weight="1" />
 
 </LinearLayout>
