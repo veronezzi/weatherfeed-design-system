@@ -11,7 +11,7 @@ Distributed via [JitPack](https://jitpack.io/#veronezzi/weatherfeed-design-syste
 
 ### Step 1 — Add JitPack to your repositories
 
-In your project's `settings.gradle.kts`:
+`settings.gradle.kts`:
 
 ```kotlin
 dependencyResolutionManagement {
@@ -25,15 +25,15 @@ dependencyResolutionManagement {
 
 ### Step 2 — Add the dependency
 
-In your app's `build.gradle.kts`:
+`app/build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.veronezzi:weatherfeed-design-system:1.0.0")
+    implementation("com.github.veronezzi:weatherfeed-design-system:1.1.0")
 }
 ```
 
-### Step 3 — Wrap your app with the theme
+### Step 3 — Wrap your app with the theme (Compose only)
 
 ```kotlin
 import com.weather.designsystem.theme.WeatherFeedTheme
@@ -50,6 +50,8 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
+For XML projects, apply `Theme.WeatherXmlCatalog` (AppCompat parent) in your manifest or use `@style/WeatherText.*` resources directly — no wrapper needed.
+
 ---
 
 ## Choosing between Compose and XML
@@ -58,17 +60,19 @@ Both implementations expose the same components and design tokens.
 
 | | Compose | XML |
 |---|---|---|
-| **Import** | `com.weather.designsystem.components.*` | `com.weather.designsystem.xml.*` |
+| **Package** | `com.weather.designsystem.components.*` | `com.weather.designsystem.xml.*` |
 | **Theme** | `WeatherFeedTheme { }` wrapper | `@style/WeatherText.*` + color/dimen resources |
-| **Usage style** | Composable functions | Custom View classes inflated from XML |
+| **Usage** | Composable functions | Custom View classes (extend `FrameLayout`) |
 | **Recommended for** | New Compose projects | Legacy XML / View-based projects |
 
 ---
 
-## Components — Compose
+## Components
 
 ### WeatherTopBar
-Top bar with location text and search button.
+
+<details open>
+<summary><b>Compose</b></summary>
 
 ```kotlin
 WeatherTopBar(
@@ -77,10 +81,31 @@ WeatherTopBar(
 )
 ```
 
+</details>
+
+<details>
+<summary><b>XML</b></summary>
+
+```xml
+<com.weather.designsystem.xml.WeatherTopBarView
+    android:id="@+id/top_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+```
+
+```kotlin
+topBar.setLocation("São Paulo, Brasil")
+topBar.setOnSearchClick { startActivity(Intent(this, SearchActivity::class.java)) }
+```
+
+</details>
+
 ---
 
 ### WeatherBottomNav
-Bottom navigation bar with 4 tabs. Active tab gets a pill highlight.
+
+<details open>
+<summary><b>Compose</b></summary>
 
 ```kotlin
 val navItems = listOf(
@@ -99,131 +124,10 @@ WeatherBottomNav(
 )
 ```
 
----
+</details>
 
-### WeatherCard + SectionLabel
-Base container card with an optional section label.
-
-```kotlin
-WeatherCard(modifier = Modifier.fillMaxWidth()) {
-    SectionLabel("Próximos Dias")
-    Text("Conteúdo aqui")
-}
-```
-
----
-
-### StatCard
-Horizontal card with 3 weather metrics (Sensação, Umidade, Vento).
-
-```kotlin
-StatCard(
-    stats = listOf(
-        WeatherStat(icon = "🌡", label = "Sensação", value = "26°"),
-        WeatherStat(icon = "💧", label = "Umidade",  value = "68%"),
-        WeatherStat(icon = "💨", label = "Vento",    value = "12 km/h"),
-    ),
-    modifier = Modifier.fillMaxWidth(),
-)
-```
-
----
-
-### ForecastRow
-Single day forecast row used in the 5-day forecast screen.
-
-```kotlin
-ForecastRow(
-    day = ForecastDay(
-        dayName       = "Terça",
-        date          = "23 Jun",
-        conditionIcon = "☀️",
-        conditionLabel = "Ensolarado",
-        tempMax       = "28°",
-        tempMin       = "19°",
-    ),
-    modifier = Modifier.fillMaxWidth(),
-)
-```
-
----
-
-### WeatherSearchBar
-Pill-shaped search bar for the search screen.
-
-```kotlin
-var query by remember { mutableStateOf("") }
-
-WeatherSearchBar(
-    value         = query,
-    onValueChange = { query = it },
-    placeholder   = "Buscar cidade ou país...",
-    modifier      = Modifier.fillMaxWidth(),
-)
-```
-
----
-
-### CityRow
-Search result item with a location pin icon.
-
-```kotlin
-CityRow(
-    cityName = "São Paulo",
-    country  = "Brasil",
-    onClick  = { /* handle selection */ },
-    modifier = Modifier.fillMaxWidth(),
-)
-```
-
----
-
-### SettingsRow + TemperatureToggle
-Settings row with icon, title, subtitle and a custom trailing slot.  
-`TemperatureToggle` is the built-in °C / °F segmented control.
-
-```kotlin
-var isCelsius by remember { mutableStateOf(true) }
-
-SettingsRow(
-    icon     = "🌡",
-    title    = "Unidade de temperatura",
-    subtitle = "Celsius ou Fahrenheit",
-    modifier = Modifier.fillMaxWidth(),
-    trailing = {
-        TemperatureToggle(
-            isCelsius = isCelsius,
-            onToggle  = { isCelsius = it },
-        )
-    },
-)
-```
-
----
-
----
-
-## Components — XML Views
-
-All components live in the `com.weather.designsystem.xml` package and extend `FrameLayout`, so they work in any XML layout or can be created programmatically.
-
-### WeatherTopBarView
-
-```xml
-<com.weather.designsystem.xml.WeatherTopBarView
-    android:id="@+id/top_bar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-```
-
-```kotlin
-topBar.setLocation("São Paulo, Brasil")
-topBar.setOnSearchClick { startActivity(SearchActivity::class) }
-```
-
----
-
-### WeatherBottomNavView
+<details>
+<summary><b>XML</b></summary>
 
 ```xml
 <com.weather.designsystem.xml.WeatherBottomNavView
@@ -244,9 +148,66 @@ bottomNav.setOnItemSelected { index ->
 }
 ```
 
+</details>
+
 ---
 
-### WeatherStatCardView
+### WeatherCard + SectionLabel
+
+<details open>
+<summary><b>Compose</b></summary>
+
+```kotlin
+WeatherCard(modifier = Modifier.fillMaxWidth()) {
+    SectionLabel("Próximos Dias")
+    Text("Conteúdo aqui")
+}
+```
+
+</details>
+
+<details>
+<summary><b>XML</b></summary>
+
+```xml
+<LinearLayout
+    android:background="@drawable/bg_weather_card"
+    android:padding="@dimen/weather_spacing_md"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/WeatherText.SectionLabel"
+        android:text="PRÓXIMOS DIAS" />
+
+</LinearLayout>
+```
+
+</details>
+
+---
+
+### StatCard
+
+<details open>
+<summary><b>Compose</b></summary>
+
+```kotlin
+StatCard(
+    stats = listOf(
+        WeatherStat(icon = "🌡", label = "Sensação", value = "26°"),
+        WeatherStat(icon = "💧", label = "Umidade",  value = "68%"),
+        WeatherStat(icon = "💨", label = "Vento",    value = "12 km/h"),
+    ),
+    modifier = Modifier.fillMaxWidth(),
+)
+```
+
+</details>
+
+<details>
+<summary><b>XML</b></summary>
 
 ```xml
 <com.weather.designsystem.xml.WeatherStatCardView
@@ -261,9 +222,33 @@ statCard.setStat2("💧", "Umidade",  "68%")
 statCard.setStat3("💨", "Vento",    "12 km/h")
 ```
 
+</details>
+
 ---
 
-### WeatherForecastRowView
+### ForecastRow
+
+<details open>
+<summary><b>Compose</b></summary>
+
+```kotlin
+ForecastRow(
+    day = ForecastDay(
+        dayName        = "Terça",
+        date           = "23 Jun",
+        conditionIcon  = "☀️",
+        conditionLabel = "Ensolarado",
+        tempMax        = "28°",
+        tempMin        = "19°",
+    ),
+    modifier = Modifier.fillMaxWidth(),
+)
+```
+
+</details>
+
+<details>
+<summary><b>XML</b></summary>
 
 ```xml
 <com.weather.designsystem.xml.WeatherForecastRowView
@@ -283,7 +268,7 @@ forecastRow.bind(
 )
 ```
 
-For lists, use it inside a `RecyclerView` adapter:
+**In a RecyclerView:**
 
 ```kotlin
 class ForecastAdapter(private val items: List<ForecastItem>) :
@@ -303,9 +288,30 @@ class ForecastAdapter(private val items: List<ForecastItem>) :
 }
 ```
 
+</details>
+
 ---
 
-### WeatherSearchBarView
+### WeatherSearchBar
+
+<details open>
+<summary><b>Compose</b></summary>
+
+```kotlin
+var query by remember { mutableStateOf("") }
+
+WeatherSearchBar(
+    value         = query,
+    onValueChange = { query = it },
+    placeholder   = "Buscar cidade ou país...",
+    modifier      = Modifier.fillMaxWidth(),
+)
+```
+
+</details>
+
+<details>
+<summary><b>XML</b></summary>
 
 ```xml
 <com.weather.designsystem.xml.WeatherSearchBarView
@@ -320,9 +326,28 @@ searchBar.setOnTextChanged { query -> viewModel.search(query) }
 searchBar.setOnSearchAction { query -> viewModel.submit(query) }
 ```
 
+</details>
+
 ---
 
-### WeatherCityRowView
+### CityRow
+
+<details open>
+<summary><b>Compose</b></summary>
+
+```kotlin
+CityRow(
+    cityName = "São Paulo",
+    country  = "Brasil",
+    onClick  = { /* handle selection */ },
+    modifier = Modifier.fillMaxWidth(),
+)
+```
+
+</details>
+
+<details>
+<summary><b>XML</b></summary>
 
 ```xml
 <com.weather.designsystem.xml.WeatherCityRowView
@@ -336,9 +361,36 @@ cityRow.bind("São Paulo", "Brasil")
 cityRow.setOnClickListener { openCity("São Paulo") }
 ```
 
+</details>
+
 ---
 
-### WeatherSettingsRowView + WeatherTemperatureToggleView
+### SettingsRow + TemperatureToggle
+
+<details open>
+<summary><b>Compose</b></summary>
+
+```kotlin
+var isCelsius by remember { mutableStateOf(true) }
+
+SettingsRow(
+    icon     = "🌡",
+    title    = "Unidade de temperatura",
+    subtitle = "Celsius ou Fahrenheit",
+    modifier = Modifier.fillMaxWidth(),
+    trailing = {
+        TemperatureToggle(
+            isCelsius = isCelsius,
+            onToggle  = { isCelsius = it },
+        )
+    },
+)
+```
+
+</details>
+
+<details>
+<summary><b>XML</b></summary>
 
 ```xml
 <com.weather.designsystem.xml.WeatherSettingsRowView
@@ -358,11 +410,13 @@ toggle.setOnUnitChanged { isCelsius -> viewModel.setUnit(isCelsius) }
 settingsRow.setTrailing(toggle)
 ```
 
+</details>
+
 ---
 
-### Using XML styles and drawables directly
+### Using XML resources directly
 
-If you prefer full control over your layouts, you can use the resources directly:
+If you prefer full control over your layouts, use the resources directly without the View classes:
 
 ```xml
 <!-- Card background -->
@@ -370,31 +424,16 @@ If you prefer full control over your layouts, you can use the resources directly
     android:background="@drawable/bg_weather_card"
     android:padding="@dimen/weather_spacing_md" ... />
 
-<!-- Section label -->
-<TextView
-    style="@style/WeatherText.SectionLabel"
-    android:text="PRÓXIMOS DIAS" />
-
-<!-- Title -->
-<TextView
-    style="@style/WeatherText.Title"
-    android:text="São Paulo" />
-
-<!-- Body / caption -->
-<TextView
-    style="@style/WeatherText.Body"
-    android:text="Parcialmente nublado" />
-
-<TextView
-    style="@style/WeatherText.Caption"
-    android:text="Sensação térmica 26°C" />
+<!-- Text styles -->
+<TextView style="@style/WeatherText.SectionLabel" android:text="PRÓXIMOS DIAS" />
+<TextView style="@style/WeatherText.Title"        android:text="São Paulo" />
+<TextView style="@style/WeatherText.Body"         android:text="Parcialmente nublado" />
+<TextView style="@style/WeatherText.Caption"      android:text="Sensação térmica 26°C" />
 ```
 
-Available styles: `WeatherText.Display`, `WeatherText.Headline`, `WeatherText.Title`,
-`WeatherText.BodyLarge`, `WeatherText.Body`, `WeatherText.Caption`, `WeatherText.SectionLabel`, `WeatherText.ScreenTitle`
+**Available styles:** `WeatherText.Display` · `WeatherText.Headline` · `WeatherText.Title` · `WeatherText.BodyLarge` · `WeatherText.Body` · `WeatherText.Caption` · `WeatherText.SectionLabel` · `WeatherText.ScreenTitle`
 
-Available drawables: `bg_weather_card`, `bg_weather_search_bar`, `bg_weather_stat_card`,
-`bg_weather_icon_circle`, `bg_weather_nav_pill`, `bg_weather_toggle_track`, `bg_weather_toggle_active`
+**Available drawables:** `bg_weather_card` · `bg_weather_search_bar` · `bg_weather_stat_card` · `bg_weather_icon_circle` · `bg_weather_nav_pill` · `bg_weather_toggle_track` · `bg_weather_toggle_active`
 
 ---
 
@@ -414,25 +453,27 @@ Available drawables: `bg_weather_card`, `bg_weather_search_bar`, `bg_weather_sta
 | `TextPrimary` | `#FFFFFF` | Main text |
 | `TextSecondary` | `#8892B0` | Subtitles and captions |
 
-### Spacing (`WeatherTheme.spacing`)
+XML equivalents are prefixed with `weather_` — e.g. `@color/weather_accent_blue`.
 
-| Token | Value |
-|---|---|
-| `xs` | 4 dp |
-| `sm` | 8 dp |
-| `md` | 16 dp |
-| `lg` | 24 dp |
-| `xl` | 32 dp |
-| `xxl` | 48 dp |
+### Spacing
 
-### Border Radius (`WeatherTheme.radius`)
+| Token (Compose) | XML dimen | Value |
+|---|---|---|
+| `WeatherTheme.spacing.xs` | `@dimen/weather_spacing_xs` | 4 dp |
+| `WeatherTheme.spacing.sm` | `@dimen/weather_spacing_sm` | 8 dp |
+| `WeatherTheme.spacing.md` | `@dimen/weather_spacing_md` | 16 dp |
+| `WeatherTheme.spacing.lg` | `@dimen/weather_spacing_lg` | 24 dp |
+| `WeatherTheme.spacing.xl` | `@dimen/weather_spacing_xl` | 32 dp |
+| `WeatherTheme.spacing.xxl` | `@dimen/weather_spacing_xxl` | 48 dp |
 
-| Token | Value |
-|---|---|
-| `sm` | 8 dp |
-| `md` | 16 dp |
-| `lg` | 20 dp |
-| `pill` | 50 dp |
+### Border Radius
+
+| Token (Compose) | XML dimen | Value |
+|---|---|---|
+| `WeatherTheme.radius.sm` | `@dimen/weather_radius_sm` | 8 dp |
+| `WeatherTheme.radius.md` | `@dimen/weather_radius_md` | 16 dp |
+| `WeatherTheme.radius.lg` | `@dimen/weather_radius_lg` | 20 dp |
+| `WeatherTheme.radius.pill` | `@dimen/weather_radius_pill` | 50 dp |
 
 ### Typography
 
@@ -448,7 +489,7 @@ Available drawables: `bg_weather_card`, `bg_weather_search_bar`, `bg_weather_sta
 
 ---
 
-## Releasing a New Version (bump guide)
+## Releasing a New Version
 
 ### 1. Make your changes and commit
 
@@ -458,31 +499,41 @@ git commit -m "feat: add new component X"
 git push
 ```
 
-### 2. Create a new GitHub release (tag = new version)
-
-```bash
-gh release create 1.1.0 --title "v1.1.0 - Description of changes"
-```
-
-Or through the GitHub UI:  
-**Releases → Draft a new release → Tag: `1.1.0` → Publish release**
-
-### 3. JitPack builds automatically
-
-Visit [jitpack.io/#veronezzi/weatherfeed-design-system](https://jitpack.io/#veronezzi/weatherfeed-design-system) and click **Get it** on the new version to trigger the build. Wait for the green badge.
-
-### 4. Users update their dependency
+### 2. Bump the version in `designsystem/build.gradle.kts`
 
 ```kotlin
-// bump the version number
-implementation("com.github.veronezzi:weatherfeed-design-system:1.1.0")
+version = "1.2.0"   // was 1.1.0
+```
+
+Commit and push the bump:
+
+```bash
+git add designsystem/build.gradle.kts
+git commit -m "chore: bump version to 1.2.0"
+git push
+```
+
+### 3. Create a GitHub release
+
+```bash
+gh release create v1.2.0 --title "v1.2.0 — Description"
+```
+
+Or through the GitHub UI: **Releases → Draft a new release → Tag: `v1.2.0` → Publish release**
+
+### 4. JitPack builds automatically
+
+Visit [jitpack.io/#veronezzi/weatherfeed-design-system](https://jitpack.io/#veronezzi/weatherfeed-design-system) and click **Get it** on the new version to trigger the build.
+
+### 5. Users update their dependency
+
+```kotlin
+implementation("com.github.veronezzi:weatherfeed-design-system:1.2.0")
 ```
 
 ### Versioning convention
 
-Follow [Semantic Versioning](https://semver.org/):
-
-| Change | Example | When to use |
+| Change | Example | When |
 |---|---|---|
 | Patch `1.0.X` | `1.0.1` | Bug fix, no API change |
 | Minor `1.X.0` | `1.1.0` | New component, backwards compatible |
@@ -494,7 +545,7 @@ Follow [Semantic Versioning](https://semver.org/):
 
 ```
 weatherfeed-design-system/
-├── designsystem/                        ← library module (the .aar)
+├── designsystem/                        ← library module (published .aar)
 │   └── src/main/
 │       ├── java/com/weather/designsystem/
 │       │   ├── theme/                   ← Compose tokens
@@ -528,6 +579,7 @@ weatherfeed-design-system/
 │               ├── weather_dimens.xml
 │               └── weather_styles.xml
 └── app/                                 ← showcase app (component catalog)
+    └── Toggle Compose/XML on the main screen to browse all components
 ```
 
 ---
