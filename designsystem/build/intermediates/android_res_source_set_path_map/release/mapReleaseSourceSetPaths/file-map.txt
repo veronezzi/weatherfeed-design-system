@@ -1,0 +1,8 @@
+com.weather.designsystem-pngs-0 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\build\generated\res\pngs\release
+com.weather.designsystem-updated_navigation_xml-1 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\build\generated\updated_navigation_xml\release
+com.weather.designsystem-mergeReleaseResources-2 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\build\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.weather.designsystem-mergeReleaseResources-3 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\build\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.weather.designsystem-release-4 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\build\intermediates\merged_res\release\mergeReleaseResources
+com.weather.designsystem-release-5 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\build\intermediates\packaged_res\release\packageReleaseResources
+com.weather.designsystem-main-6 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\src\main\res
+com.weather.designsystem-release-7 C:\Users\guigu\AndroidStudioProjects\weaterDesignSystem\designsystem\src\release\res

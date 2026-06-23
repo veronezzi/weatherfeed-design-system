@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Gradient -->
+    <color name="weather_gradient_start">#3B4BC8</color>
+    <color name="weather_gradient_end">#7B2FCA</color>
+
+    <!-- Backgrounds -->
+    <color name="weather_background_deep">#0A0F28</color>
+    <color name="weather_background_dark">#0D1230</color>
+    <color name="weather_surface_card">#1A2040</color>
+    <color name="weather_surface_elevated">#1E2845</color>
+    <color name="weather_nav_active_pill">#2D3A6E</color>
+    <color name="weather_overlay">#33FFFFFF</color>
+    <color name="weather_divider">#1E2845</color>
+
+    <!-- Accent -->
+    <color name="weather_accent_blue">#5B9EF0</color>
+    <color name="weather_accent_cyan">#64B5F6</color>
+    <color name="weather_accent_orange">#FF8C42</color>
+
+    <!-- Text -->
+    <color name="weather_text_primary">#FFFFFF</color>
+    <color name="weather_text_secondary">#8892B0</color>
+    <color name="weather_text_muted">#4A5580</color>
+</resources>

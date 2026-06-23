@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_weather_toggle_track"
+    android:orientation="horizontal"
+    android:padding="3dp">
+
+    <TextView
+        android:id="@+id/tv_celsius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_weather_toggle_active"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="°C"
+        android:textColor="@color/weather_background_deep"
+        android:textSize="@dimen/weather_text_caption"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_fahrenheit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="°F"
+        android:textColor="@color/weather_text_secondary"
+        android:textSize="@dimen/weather_text_caption"
+        android:textStyle="bold" />
+
+</LinearLayout>
