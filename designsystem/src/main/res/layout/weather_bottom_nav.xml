@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/weather_nav_height"
     android:background="@color/weather_background_deep"
@@ -22,12 +23,14 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_weather_nav_pill">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/nav_icon_0"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:text="🌤"
-                android:textSize="18sp" />
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_weather_cloud"
+                app:tint="@color/weather_accent_blue" />
         </FrameLayout>
 
         <TextView
@@ -51,15 +54,18 @@
         android:orientation="vertical">
 
         <FrameLayout
+            android:id="@+id/nav_pill_1"
             android:layout_width="40dp"
             android:layout_height="40dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/nav_icon_1"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:text="📅"
-                android:textSize="18sp" />
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_weather_calendar"
+                app:tint="@color/weather_text_secondary" />
         </FrameLayout>
 
         <TextView
@@ -83,15 +89,18 @@
         android:orientation="vertical">
 
         <FrameLayout
+            android:id="@+id/nav_pill_2"
             android:layout_width="40dp"
             android:layout_height="40dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/nav_icon_2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:text="🔍"
-                android:textSize="18sp" />
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_weather_search"
+                app:tint="@color/weather_text_secondary" />
         </FrameLayout>
 
         <TextView
@@ -115,15 +124,18 @@
         android:orientation="vertical">
 
         <FrameLayout
+            android:id="@+id/nav_pill_3"
             android:layout_width="40dp"
             android:layout_height="40dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/nav_icon_3"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:text="⚙️"
-                android:textSize="18sp" />
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_weather_settings"
+                app:tint="@color/weather_text_secondary" />
         </FrameLayout>
 
         <TextView

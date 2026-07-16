@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/weather_component_height"
     android:background="@drawable/bg_weather_search_bar"
@@ -7,11 +8,12 @@
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/weather_spacing_md">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🔍"
-        android:textSize="@dimen/weather_text_body" />
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_weather_search"
+        app:tint="@color/weather_text_secondary" />
 
     <EditText
         android:id="@+id/et_search"

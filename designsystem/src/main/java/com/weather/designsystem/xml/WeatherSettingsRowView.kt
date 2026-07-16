@@ -4,11 +4,13 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import com.weather.designsystem.R
 
 /**
- * Settings row with an icon, title, subtitle and an optional trailing view.
+ * Settings row with a line icon, title, subtitle and an optional trailing view.
  *
  * Usage in XML:
  * ```xml
@@ -20,7 +22,7 @@ import com.weather.designsystem.R
  *
  * Usage in code:
  * ```kotlin
- * settingsRow.setIcon("🌡")
+ * settingsRow.setIcon(R.drawable.ic_weather_thermometer)
  * settingsRow.setTitle("Unidade de temperatura")
  * settingsRow.setSubtitle("Celsius ou Fahrenheit")
  *
@@ -35,21 +37,29 @@ class WeatherSettingsRowView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val tvIcon: TextView
+    private val ivIcon: ImageView
     private val tvTitle: TextView
     private val tvSubtitle: TextView
     private val flTrailing: FrameLayout
 
     init {
         inflate(context, R.layout.weather_settings_row, this)
-        tvIcon     = findViewById(R.id.tv_settings_icon)
+        ivIcon     = findViewById(R.id.iv_settings_icon)
         tvTitle    = findViewById(R.id.tv_settings_title)
         tvSubtitle = findViewById(R.id.tv_settings_subtitle)
         flTrailing = findViewById(R.id.fl_trailing)
     }
 
+    fun setIcon(@DrawableRes icon: Int) {
+        ivIcon.setImageResource(icon)
+    }
+
+    @Deprecated(
+        "Ícones agora são vector drawables do design system; o parâmetro String é ignorado. " +
+            "Use setIcon(iconRes).",
+    )
     fun setIcon(icon: String) {
-        tvIcon.text = icon
+        // emoji legado ignorado; o ícone padrão do layout permanece
     }
 
     fun setTitle(title: String) {
