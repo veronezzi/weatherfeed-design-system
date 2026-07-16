@@ -1,44 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_weather_card"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/weather_spacing_md"
-    android:paddingVertical="@dimen/weather_spacing_md">
+    android:paddingVertical="@dimen/weather_spacing_sm">
 
-    <!-- Day + Date -->
+    <!-- Day pill (white, dark text) -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/day_pill"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.2"
-        android:orientation="vertical">
+        android:background="@drawable/bg_weather_day_pill"
+        android:gravity="center"
+        android:minWidth="64dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/weather_spacing_sm"
+        android:paddingVertical="@dimen/weather_spacing_sm">
 
         <TextView
             android:id="@+id/tv_day_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/WeatherText.Title"
-            android:text="Hoje" />
+            android:text="Hoje"
+            android:textColor="@color/weather_background_deep"
+            android:textSize="@dimen/weather_text_body"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_day_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/WeatherText.Caption"
-            android:text="22 Jun" />
+            android:text="22 Jun"
+            android:textColor="@color/weather_text_muted"
+            android:textSize="@dimen/weather_text_label" />
     </LinearLayout>
 
-    <!-- Icon -->
-    <TextView
-        android:id="@+id/tv_condition_icon"
+    <!-- Condition icon -->
+    <ImageView
+        android:id="@+id/iv_condition_icon"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:layout_weight="0.6"
-        android:gravity="center"
-        android:text="⛅"
-        android:textSize="22sp" />
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_condition_sun_cloud"
+        app:tint="@color/weather_accent_blue" />
 
     <!-- Condition label -->
     <TextView
