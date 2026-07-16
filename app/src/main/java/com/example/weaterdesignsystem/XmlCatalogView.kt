@@ -13,6 +13,7 @@ import com.example.weaterdesignsystem.databinding.ItemXmlSectionBinding
 import com.example.weaterdesignsystem.databinding.ViewXmlCatalogBinding
 import com.weather.designsystem.WeatherConditionIcons
 import com.weather.designsystem.xml.WeatherBottomNavView
+import com.weather.designsystem.xml.WeatherButtonView
 import com.weather.designsystem.xml.WeatherCityRowView
 import com.weather.designsystem.xml.WeatherForecastRowView
 import com.weather.designsystem.xml.WeatherSearchBarView
@@ -187,6 +188,15 @@ class XmlCatalogView @JvmOverloads constructor(
                     row.bind(city, country)
                     container.addView(row, matchWrap(bottomMargin = 8.dp))
                 }
+        },
+
+        XmlComponentEntry("WeatherButtonView", "Inputs",
+            "Botão pill — usado em telas de erro/retry",
+        ) { container ->
+            val v = WeatherButtonView(context)
+            v.text = "Tentar novamente"
+            v.setOnClickListener { }
+            container.addView(v, wrapWrap())
         },
 
         XmlComponentEntry("WeatherSettingsRowView", "Settings",
