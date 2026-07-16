@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/weather_top_bar_height"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/weather_spacing_md">
 
-    <TextView
-        android:id="@+id/tv_location_pin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="📍"
-        android:textSize="@dimen/weather_text_body" />
+    <ImageView
+        android:id="@+id/iv_location_pin"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_weather_pin"
+        app:tint="@color/weather_accent_blue" />
 
     <TextView
         android:id="@+id/tv_location"
@@ -29,12 +31,13 @@
         android:background="@drawable/bg_weather_icon_circle"
         android:foreground="?attr/selectableItemBackgroundBorderless">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_gravity="center"
-            android:text="🔍"
-            android:textSize="@dimen/weather_text_body" />
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_weather_search"
+            app:tint="@color/weather_text_primary" />
     </FrameLayout>
 
 </LinearLayout>

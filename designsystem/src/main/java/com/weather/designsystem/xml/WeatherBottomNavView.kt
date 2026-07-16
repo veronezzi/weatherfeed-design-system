@@ -1,15 +1,17 @@
 package com.weather.designsystem.xml
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.weather.designsystem.R
 
 /**
  * Bottom navigation bar with 4 fixed tabs: Clima, 5 Dias, Buscar, Ajustes.
- * The active tab gets a navy pill background and blue label.
+ * The active tab gets a navy pill background, blue icon and blue label.
  *
  * Usage in XML:
  * ```xml
@@ -33,6 +35,7 @@ class WeatherBottomNavView @JvmOverloads constructor(
 
     private val items: List<LinearLayout>
     private val pills: List<FrameLayout>
+    private val icons: List<ImageView>
     private val labels: List<TextView>
 
     private var selectedIndex: Int = 0
@@ -53,8 +56,15 @@ class WeatherBottomNavView @JvmOverloads constructor(
         )
         pills = listOf(
             findViewById(R.id.nav_pill_0),
-            // items 1-3 don't have pill IDs — handled via renderState
-            FrameLayout(context), FrameLayout(context), FrameLayout(context),
+            findViewById(R.id.nav_pill_1),
+            findViewById(R.id.nav_pill_2),
+            findViewById(R.id.nav_pill_3),
+        )
+        icons = listOf(
+            findViewById(R.id.nav_icon_0),
+            findViewById(R.id.nav_icon_1),
+            findViewById(R.id.nav_icon_2),
+            findViewById(R.id.nav_icon_3),
         )
         labels = listOf(
             findViewById(R.id.nav_label_0),
@@ -92,7 +102,13 @@ class WeatherBottomNavView @JvmOverloads constructor(
         labels.forEachIndexed { index, label ->
             label.setTextColor(if (index == selectedIndex) activeColor else inactiveColor)
         }
-        // pill background only on item 0 (others would need IDs added to layout)
-        pills[0].background = if (selectedIndex == 0) activePill else null
+        icons.forEachIndexed { index, icon ->
+            icon.imageTintList = ColorStateList.valueOf(
+                if (index == selectedIndex) activeColor else inactiveColor
+            )
+        }
+        pills.forEachIndexed { index, pill ->
+            pill.background = if (index == selectedIndex) activePill else null
+        }
     }
 }
