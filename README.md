@@ -217,9 +217,13 @@ StatCard(
 ```
 
 ```kotlin
-statCard.setStat1("🌡", "Sensação", "26°")
-statCard.setStat2("💧", "Umidade",  "68%")
-statCard.setStat3("💨", "Vento",    "12 km/h")
+// ícones de linha padrão (termômetro, gota, vento)
+statCard.setStat1("Sensação", "26°")
+statCard.setStat2("Umidade",  "68%")
+statCard.setStat3("Vento",    "12 km/h")
+
+// ou com ícone customizado do design system
+statCard.setStat1(R.drawable.ic_weather_thermometer, "Sensação", "26°")
 ```
 
 </details>
@@ -261,7 +265,17 @@ ForecastRow(
 forecastRow.bind(
     dayName        = "Terça",
     date           = "23 Jun",
-    conditionIcon  = "☀️",
+    conditionIcon  = R.drawable.ic_condition_sun,
+    conditionLabel = "Ensolarado",
+    tempMax        = "28°",
+    tempMin        = "19°",
+)
+
+// ou direto do código da OpenWeather:
+forecastRow.bind(
+    dayName        = "Terça",
+    date           = "23 Jun",
+    conditionIcon  = WeatherConditionIcons.fromOpenWeather("01d"),
     conditionLabel = "Ensolarado",
     tempMax        = "28°",
     tempMin        = "19°",
@@ -400,7 +414,7 @@ SettingsRow(
 ```
 
 ```kotlin
-settingsRow.setIcon("🌡")
+settingsRow.setIcon(R.drawable.ic_weather_thermometer)
 settingsRow.setTitle("Unidade de temperatura")
 settingsRow.setSubtitle("Celsius ou Fahrenheit")
 

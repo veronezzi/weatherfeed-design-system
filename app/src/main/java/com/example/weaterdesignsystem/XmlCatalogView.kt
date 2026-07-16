@@ -11,7 +11,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.weaterdesignsystem.databinding.ItemXmlSectionBinding
 import com.example.weaterdesignsystem.databinding.ViewXmlCatalogBinding
+import com.weather.designsystem.WeatherConditionIcons
 import com.weather.designsystem.xml.WeatherBottomNavView
+import com.weather.designsystem.xml.WeatherButtonView
 import com.weather.designsystem.xml.WeatherCityRowView
 import com.weather.designsystem.xml.WeatherForecastRowView
 import com.weather.designsystem.xml.WeatherSearchBarView
@@ -142,9 +144,9 @@ class XmlCatalogView @JvmOverloads constructor(
             "Card horizontal com 3 métricas: Sensação, Umidade, Vento",
         ) { container ->
             val v = WeatherStatCardView(context)
-            v.setStat1("🌡", "Sensação", "26°")
-            v.setStat2("💧", "Umidade",  "68%")
-            v.setStat3("💨", "Vento",    "12 km/h")
+            v.setStat1("Sensação", "26°")
+            v.setStat2("Umidade",  "68%")
+            v.setStat3("Vento",    "12 km/h")
             container.addView(v, matchWrap())
         },
 
@@ -152,12 +154,19 @@ class XmlCatalogView @JvmOverloads constructor(
             "Linha de previsão de um dia — usada na tela 5 Dias",
         ) { container ->
             listOf(
-                arrayOf("Hoje",   "22 Jun", "⛅", "Parc. nublado", "25°", "18°"),
-                arrayOf("Terça",  "23 Jun", "☀️", "Ensolarado",    "28°", "19°"),
-                arrayOf("Quarta", "24 Jun", "🌧", "Chuvoso",       "21°", "16°"),
+                ForecastDemo("Hoje",   "22 Jun", "02d", "Parc. nublado", "25°", "18°"),
+                ForecastDemo("Terça",  "23 Jun", "01d", "Ensolarado",    "28°", "19°"),
+                ForecastDemo("Quarta", "24 Jun", "10d", "Chuvoso",       "21°", "16°"),
             ).forEach { d ->
                 val row = WeatherForecastRowView(context)
-                row.bind(d[0], d[1], d[2], d[3], d[4], d[5])
+                row.bind(
+                    d.day,
+                    d.date,
+                    WeatherConditionIcons.fromOpenWeather(d.code),
+                    d.label,
+                    d.max,
+                    d.min,
+                )
                 container.addView(row, matchWrap(bottomMargin = 8.dp))
             }
         },
@@ -181,11 +190,20 @@ class XmlCatalogView @JvmOverloads constructor(
                 }
         },
 
+        XmlComponentEntry("WeatherButtonView", "Inputs",
+            "Botão pill — usado em telas de erro/retry",
+        ) { container ->
+            val v = WeatherButtonView(context)
+            v.text = "Tentar novamente"
+            v.setOnClickListener { }
+            container.addView(v, wrapWrap())
+        },
+
         XmlComponentEntry("WeatherSettingsRowView", "Settings",
             "Linha de configuração com ícone, título, subtítulo e trailing",
         ) { container ->
             val row = WeatherSettingsRowView(context)
-            row.setIcon("🌡")
+            row.setIcon(com.weather.designsystem.R.drawable.ic_weather_thermometer)
             row.setTitle("Unidade de temperatura")
             row.setSubtitle("Celsius ou Fahrenheit")
             val toggle = WeatherTemperatureToggleView(context)
@@ -264,3 +282,12 @@ class XmlCatalogView @JvmOverloads constructor(
 
     private val Int.dp: Int get() = (this * resources.displayMetrics.density).toInt()
 }
+
+private data class ForecastDemo(
+    val day: String,
+    val date: String,
+    val code: String,
+    val label: String,
+    val max: String,
+    val min: String,
+)

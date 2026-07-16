@@ -58,7 +58,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId    = "com.github.veronezzi"
                 artifactId = "weatherfeed-design-system"
-                version    = "1.2.0"
+                version    = "1.3.0"
             }
         }
     }
